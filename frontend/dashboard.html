@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mother Theresa Transport - Management Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'><path d='M1 3h15v13H1z'/><path d='M16 8h4l3 3v5h-7V8z'/><circle cx='5.5' cy='18.5' r='2.5'/><circle cx='18.5' cy='18.5' r='2.5'/></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="app-layout">
+    
+    <!-- ---------------- SIDEBAR (Matching Reference Image 1) ---------------- -->
+    <aside class="sidebar" id="appSidebar">
+      
+      <div class="sidebar-header">
+        <a href="/dashboard" class="sidebar-brand">
+          <div class="sidebar-logo-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+          </div>
+          <div class="sidebar-title">Mother Theresa<br>Transport</div>
+        </a>
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="Collapse Sidebar">&lt;</button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-item active" data-view="dashboard">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span class="nav-text">Dashboard</span>
+        </div>
+
+        <div class="nav-item" data-view="trucks">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+          <span class="nav-text">Truck Management</span>
+        </div>
+
+        <div class="nav-item" data-view="trips">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="6" cy="19" r="3"></circle>
+            <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path>
+            <circle cx="18" cy="5" r="3"></circle>
+          </svg>
+          <span class="nav-text">Trips & Loads</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </div>
+
+        <div class="nav-item" data-view="expenses">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          <span class="nav-text">Income & Expenses</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </div>
+
+        <div class="nav-item" data-view="drivers">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="nav-text">Driver Management</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </div>
+
+        <div class="nav-item" data-view="salary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <line x1="6" y1="8" x2="6" y2="8.01"></line>
+            <line x1="10" y1="8" x2="18" y2="8"></line>
+            <line x1="6" y1="12" x2="6" y2="12.01"></line>
+            <line x1="10" y1="12" x2="18" y2="12"></line>
+            <line x1="6" y1="16" x2="6" y2="16.01"></line>
+            <line x1="10" y1="16" x2="18" y2="16"></line>
+          </svg>
+          <span class="nav-text">Salary & Bata</span>
+        </div>
+
+        <div class="nav-item" data-view="documents">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span class="nav-text">Documents & Reminders</span>
+        </div>
+
+        <div class="nav-item" data-view="reports">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span class="nav-text">Reports</span>
+        </div>
+
+        <div class="nav-item" data-view="settings">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span class="nav-text">Settings</span>
+        </div>
+      </nav>
+
+      <!-- Sidebar Bottom Banner matching reference -->
+      <div class="sidebar-bottom-banner">
+        <div class="bottom-banner-text">Better Logistics<br>Better Tomorrow</div>
+      </div>
+
+    </aside>
+
+    <!-- ---------------- MAIN WORKSPACE ---------------- -->
+    <div class="main-wrapper">
+      
+      <!-- Top Header matching reference -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="header-logo-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+          </div>
+          <div class="header-brand-info">
+            <h2>Mother Theresa Transport</h2>
+            <p>Safe Journey... Stronger Tomorrow...</p>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Current Date Badge -->
+          <div class="current-date-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span id="currentDateText">26 Oct 2026 Monday</span>
+          </div>
+
+          <!-- Notification Bell -->
+          <div class="notification-wrapper">
+            <button class="notification-bell-btn" id="notifBellBtn" title="Notifications">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="notification-counter" id="notifCountBadge">3</span>
+            </button>
+            <div class="notification-popover" id="notifPopover">
+              <div class="notif-header">
+                <span>Alerts & Notifications</span>
+                <span style="font-size: 0.75rem; color: #007bff; cursor: pointer;">All</span>
+              </div>
+              <div class="notif-list" id="notifListContainer"></div>
+            </div>
+          </div>
+
+          <!-- Owner Profile Pill -->
+          <div class="owner-profile-pill" id="ownerProfilePill">
+            <div class="owner-avatar">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <span class="owner-name" id="ownerDisplayUsername">Owner</span>
+            <span style="font-size: 0.7rem; color: #64748b;">&#9662;</span>
+
+            <div class="profile-dropdown-menu" id="profileDropdown">
+              <div class="dropdown-item" onclick="window.openOwnerProfileModal()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>Owner Profile</span>
+              </div>
+              <div class="dropdown-item" onclick="switchModuleView('settings')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span>Settings</span>
+              </div>
+              <div class="dropdown-item logout" id="logoutDropdownBtn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <span>Logout</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- ---------------- CONTENT AREA ---------------- -->
+      <main class="content-area">
+        
+        <!-- ================= VIEW 1: DASHBOARD (EXACT MATCH REFERENCE 1) ================= -->
+        <div id="view-dashboard" class="module-view active-view">
+          
+          <!-- Welcome Hero Banner -->
+          <div class="welcome-hero-banner">
+            <div class="welcome-text-side">
+              <h1 id="welcomeHeroTitle">Good Morning, Owner!</h1>
+              <p>Here's what's happening with your transport business today.</p>
+            </div>
+            <div class="welcome-graphic-side">
+              <span class="every-mile-quote">"Every Mile Counts..."</span>
+              <img src="/static/assets/images/hero_banner_truck.jpg" alt="Transport Highway" class="welcome-truck-img">
+            </div>
+          </div>
+
+          <!-- Date Filter Bar -->
+          <div class="dashboard-filter-bar">
+            <div class="period-pills">
+              <button class="period-btn" data-period="today">Today</button>
+              <button class="period-btn" data-period="week">This Week</button>
+              <button class="period-btn active" data-period="month">This Month</button>
+              <button class="period-btn" data-period="all">All Time</button>
+            </div>
+          </div>
+
+          <!-- 8 Gradient Summary Cards matching Reference 1 -->
+          <div class="kpi-grid">
+            
+            <!-- Card 1: Total Trucks -->
+            <div class="kpi-card card-trucks" onclick="switchModuleView('trucks')">
+              <div class="kpi-top">
+                <div class="kpi-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                </div>
+                <span class="kpi-card-label">Total Trucks</span>
+              </div>
+              <div class="kpi-value" id="kpiTotalTrucks">4</div>
+              <div class="kpi-bottom">
+                <span class="kpi-subtext" id="kpiTrucksSub">All Vehicles Active</span>
+                <span class="kpi-arrow-circle">&rarr;</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Active Trips -->
+            <div class="kpi-card card-active-trips" onclick="switchModuleView('trips')">
+              <div class="kpi-top">
+                <div class="kpi-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="6" cy="19" r="3"></circle>
+                    <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path>
+                    <circle cx="18" cy="5" r="3"></circle>
+                  </svg>
+                </div>
+                <span class="kpi-card-label">Active Trips</span>
+              </div>
+              <div class="kpi-value" id="kpiActiveTrips">2</div>
+              <div class="kpi-bottom">
+                <span class="kpi-subtext" id="kpiActiveTripsSub">Out of 4 Trucks</span>
+                <span class="kpi-arrow-circle">&rarr;</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Total Income -->
+            <div class="kpi-card card-income" onclick="switchModuleView('trips')">
+              <div class="kpi-top">
+                <div class="kpi-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+                <span class="kpi-card-label">Total Income</span>
+              </div>
+              <div class="kpi-value" id="kpiTotalIncome">&#8377; 1,50,000</div>
+              <div class="kpi-bottom">
+                <span class="kpi-subtext" id="kpiIncomeSub">&nearr; 12% from last month</span>
+                <span class="kpi-arrow-circle">&rarr;</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Total Expenses -->
+            <div class="kpi-card card-expenses" onclick="switchModuleView('expenses')">
+              <div class="kpi-top">
+                <div class="kpi-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </div>
+                <span class="kpi-card-label">Total Expenses</span>
+              </div>
+              <div class="kpi-value" id="kpiTotalExpenses">&#8377; 45,000</div>
+              <div class="kpi-bottom">
+                <span class="kpi-subtext" id="kpiExpensesSub">&nearr; 8% from last month</span>
+                <span class="kpi-arrow-circle">&rarr;</span>
+              </div>
+            </div>
+
+            <!-- Card 5: Balance Receivable -->
+            <div class="kpi-card card-receivable" onclick="switchModuleView('trips')">
+              <div class="kpi-top">
+                <div class="kpi-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                </div>
+                <span class="kpi-card-label">Balance Receivable</span>
+              </div>
+              <div class="kpi-value" id="kpiReceivable">&#8377; 1,10,000</div>
+              <div class="kpi-bottom">
+                <span class="kpi-subtext" id="kpiReceivableSub">From Customers</span>
+                <span class="kpi-arrow-circle">&rarr;</span>
+              </div>
+            </div>
+
+            <!-- Card 6: Driver Salary Pending -->
+            <div class="kpi-card card-salary" onclick="switchModuleView('salary')">
+              <div class="kpi-top">
+                <div class="kpi-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <span class="kpi-card-label">Driver Salary Pending</span>
+              </div>
+              <div class="kpi-value" id="kpiDriverSalary">&#8377; 32,000</div>
+              <div class="kpi-bottom">
+                <span class="kpi-subtext" id="kpiDriverSalarySub">For 4 Drivers</span>
+                <span class="kpi-arrow-circle">&rarr;</span>
+              </div>
+            </div>
+
+            <!-- Card 7: Document Alerts -->
+            <div class="kpi-card card-alerts" onclick="switchModuleView('documents')">
+              <div class="kpi-top">
+                <div class="kpi-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                </div>
+                <span class="kpi-card-label">Document Alerts</span>
+              </div>
+              <div class="kpi-value" id="kpiDocAlerts">2</div>
+              <div class="kpi-bottom">
+                <span class="kpi-subtext" id="kpiDocAlertsSub">Expiring Soon</span>
+                <span class="kpi-arrow-circle">&rarr;</span>
+              </div>
+            </div>
+
+            <!-- Card 8: Fuel Expenses -->
+            <div class="kpi-card card-fuel" onclick="switchModuleView('expenses')">
+              <div class="kpi-top">
+                <div class="kpi-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 2v20h18V2H3zm14 9h-4V7h4v4z"></path>
+                  </svg>
+                </div>
+                <span class="kpi-card-label">Fuel Expenses</span>
+              </div>
+              <div class="kpi-value" id="kpiFuelExpenses">&#8377; 18,500</div>
+              <div class="kpi-bottom">
+                <span class="kpi-subtext" id="kpiFuelExpensesSub">This Month</span>
+                <span class="kpi-arrow-circle">&rarr;</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Row 1 Analytics: Income vs Expenses | Expense Breakdown | Upcoming Expiry -->
+          <div class="analytics-row-1">
+            
+            <!-- Income vs Expenses Bar Chart -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <span class="panel-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                  </span>
+                  <h3 class="panel-title">Income vs Expenses</h3>
+                </div>
+              </div>
+              <div class="chart-container-box">
+                <canvas id="incomeExpenseChartCanvas"></canvas>
+              </div>
+            </div>
+
+            <!-- Expense Breakdown Donut Chart -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <span class="panel-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="M12 2a10 10 0 0 1 10 10h-10z"></path>
+                    </svg>
+                  </span>
+                  <h3 class="panel-title">Expense Breakdown</h3>
+                </div>
+              </div>
+              <div class="chart-container-box">
+                <canvas id="expenseDonutChartCanvas"></canvas>
+                <div class="donut-center-info">
+                  <div class="donut-center-value" id="donutCenterVal">&#8377; 45,000</div>
+                  <div class="donut-center-label">Total Expenses</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upcoming Document Expiry Table -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <span class="panel-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                  </span>
+                  <h3 class="panel-title">Upcoming Document Expiry</h3>
+                </div>
+                <a class="panel-action-link" onclick="switchModuleView('documents')">View All &rarr;</a>
+              </div>
+              <div class="table-responsive" style="max-height: 220px;">
+                <table class="data-table-mini">
+                  <thead>
+                    <tr>
+                      <th>Vehicle No.</th>
+                      <th>Document</th>
+                      <th>Expiry Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="upcomingExpiryTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Row 2 Analytics: Recent Trips Table & Quick Summary List -->
+          <div class="analytics-row-2">
+            
+            <!-- Recent Trips Table -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <span class="panel-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="1" y="3" width="15" height="13"></rect>
+                      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                      <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                      <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                    </svg>
+                  </span>
+                  <h3 class="panel-title">Recent Trips</h3>
+                </div>
+                <a class="panel-action-link" onclick="switchModuleView('trips')">View All &rarr;</a>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Vehicle No.</th>
+                      <th>From &rarr; To</th>
+                      <th>Transporter</th>
+                      <th>Rent</th>
+                      <th>Advance</th>
+                      <th>Balance</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentTripsTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Quick Summary -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <span class="panel-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                  </span>
+                  <h3 class="panel-title">Quick Summary</h3>
+                </div>
+              </div>
+              <div class="quick-summary-list">
+                
+                <div class="quick-summary-item">
+                  <div class="quick-summary-left">
+                    <div class="quick-summary-icon" style="background: #e0f2fe; color: #0284c7;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <span class="quick-summary-label">Total Trips (This Month)</span>
+                  </div>
+                  <span class="quick-summary-value" id="qsTripsMonth">6</span>
+                </div>
+
+                <div class="quick-summary-item">
+                  <div class="quick-summary-left">
+                    <div class="quick-summary-icon" style="background: #dcfce7; color: #16a34a;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path></svg>
+                    </div>
+                    <span class="quick-summary-label">Total Distance (Approx)</span>
+                  </div>
+                  <span class="quick-summary-value" id="qsDistance">4,850 km</span>
+                </div>
+
+                <div class="quick-summary-item">
+                  <div class="quick-summary-left">
+                    <div class="quick-summary-icon" style="background: #e0e7ff; color: #4338ca;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v20h18V2H3zm14 9h-4V7h4v4z"></path></svg>
+                    </div>
+                    <span class="quick-summary-label">Total Fuel Cost</span>
+                  </div>
+                  <span class="quick-summary-value" id="qsFuelCost">&#8377; 18,500</span>
+                </div>
+
+                <div class="quick-summary-item">
+                  <div class="quick-summary-left">
+                    <div class="quick-summary-icon" style="background: #fdf2f8; color: #db2777;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                    </div>
+                    <span class="quick-summary-label">Total Toll Cost</span>
+                  </div>
+                  <span class="quick-summary-value" id="qsTollCost">&#8377; 8,000</span>
+                </div>
+
+                <div class="quick-summary-item" style="border-bottom: none;">
+                  <div class="quick-summary-left">
+                    <div class="quick-summary-icon" style="background: #ffedd5; color: #ea580c;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <span class="quick-summary-label">Total Profit (Approx)</span>
+                  </div>
+                  <span class="quick-summary-value" style="color: #16a34a;" id="qsTotalProfit">&#8377; 72,500</span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Row 3 Analytics: Quick Actions & Landscape Quote Card -->
+          <div class="analytics-row-3">
+            
+            <div class="quick-actions-bar">
+              <div class="btn-action-tile" onclick="openModal('modalAddTrip')">
+                <div class="action-tile-icon" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path></svg>
+                </div>
+                <div class="action-tile-text">
+                  <h4>Add New Trip</h4>
+                  <p>Create a new load</p>
+                </div>
+              </div>
+
+              <div class="btn-action-tile" onclick="openModal('modalAddExpense')">
+                <div class="action-tile-icon" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <div class="action-tile-text">
+                  <h4>Add Expense</h4>
+                  <p>Diesel, Toll, Repair etc.</p>
+                </div>
+              </div>
+
+              <div class="btn-action-tile" onclick="openModal('modalAddDriver')">
+                <div class="action-tile-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+                <div class="action-tile-text">
+                  <h4>Add Driver</h4>
+                  <p>Register new driver</p>
+                </div>
+              </div>
+
+              <div class="btn-action-tile" onclick="openModal('modalAddTruck')">
+                <div class="action-tile-icon" style="background: linear-gradient(135deg, #14b8a6, #0d9488);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon></svg>
+                </div>
+                <div class="action-tile-text">
+                  <h4>Add Truck</h4>
+                  <p>Register new vehicle</p>
+                </div>
+              </div>
+
+              <div class="btn-action-tile" onclick="switchModuleView('reports')">
+                <div class="action-tile-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                </div>
+                <div class="action-tile-text">
+                  <h4>View Reports</h4>
+                  <p>Generate & export</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quote Banner matching reference -->
+            <div class="quote-landscape-card">
+              <blockquote>"Dreams don't work unless you do."</blockquote>
+              <div class="quote-author">- John C. Maxwell</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ================= VIEW 2: TRUCK MANAGEMENT ================= -->
+        <div id="view-trucks" class="module-view">
+          <div class="module-header-row">
+            <div class="module-header-title">
+              <h2>Truck Fleet Management</h2>
+              <p>Manage vehicles, statutory documents, permits and vehicle profitability</p>
+            </div>
+            <div class="module-actions-row">
+              <button class="btn-primary" onclick="openModal('modalAddTruck')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Add Truck
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-controls-card">
+            <div class="search-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="truckSearchInput" placeholder="Search by vehicle number (e.g. TN-60-9262)..." oninput="window.loadTrucksView()">
+            </div>
+          </div>
+
+          <div class="entity-grid" id="trucksGridContainer"></div>
+        </div>
+
+        <!-- ================= VIEW 3: TRIPS & LOADS ================= -->
+        <div id="view-trips" class="module-view">
+          <div class="module-header-row">
+            <div class="module-header-title">
+              <h2>Trips & Loads Ledger</h2>
+              <p>Trip booking, transporter rent, advance receipts and balance tracking</p>
+            </div>
+            <div class="module-actions-row">
+              <button class="btn-secondary" onclick="window.exportTripsCSV()">Export CSV</button>
+              <button class="btn-primary" onclick="openModal('modalAddTrip')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Add New Trip
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-controls-card">
+            <div class="search-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="tripsSearchInput" placeholder="Search route, customer, load..." oninput="window.loadTripsView()">
+            </div>
+            <select id="tripsStatusFilter" class="select-filter" onchange="window.loadTripsView()">
+              <option value="All">All Trip Statuses</option>
+              <option value="Ongoing">Ongoing</option>
+              <option value="Completed">Completed</option>
+              <option value="Planned">Planned</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+
+          <div class="panel-card" style="padding: 0; overflow: hidden;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Vehicle No.</th>
+                    <th>Route</th>
+                    <th>Customer</th>
+                    <th>Driver</th>
+                    <th>Total Rent</th>
+                    <th>Advance</th>
+                    <th>Addl. Paid</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tripsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= VIEW 4: INCOME & EXPENSES ================= -->
+        <div id="view-expenses" class="module-view">
+          <div class="module-header-row">
+            <div class="module-header-title">
+              <h2>Expense & Income Management</h2>
+              <p>Diesel, Toll, Driver Bata, Vehicle Repairs and Operating Costs</p>
+            </div>
+            <div class="module-actions-row">
+              <button class="btn-secondary" onclick="window.exportExpensesCSV()">Export CSV</button>
+              <button class="btn-primary" onclick="openModal('modalAddExpense')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Add Expense
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-controls-card">
+            <div class="search-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="expenseSearchInput" placeholder="Search vendor, description..." oninput="window.loadExpensesView()">
+            </div>
+            <select id="expenseCategoryFilter" class="select-filter" onchange="window.loadExpensesView()">
+              <option value="All">All Categories</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Toll">Toll</option>
+              <option value="Driver Bata">Driver Bata</option>
+              <option value="Repair & Maintenance">Repair & Maintenance</option>
+              <option value="Loading/Unloading">Loading/Unloading</option>
+              <option value="Insurance">Insurance</option>
+              <option value="Permit & FC">Permit & FC</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="panel-card" style="padding: 0; overflow: hidden;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Vehicle</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Paid To</th>
+                    <th>Method</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody id="expensesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= VIEW 5: DRIVER MANAGEMENT ================= -->
+        <div id="view-drivers" class="module-view">
+          <div class="module-header-row">
+            <div class="module-header-title">
+              <h2>Driver Profiles & Employment</h2>
+              <p>Driver roster, license compliance and assigned vehicle tracking</p>
+            </div>
+            <div class="module-actions-row">
+              <button class="btn-primary" onclick="openModal('modalAddDriver')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Add Driver
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-controls-card">
+            <div class="search-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="driverSearchInput" placeholder="Search driver name, phone, license..." oninput="window.loadDriversView()">
+            </div>
+          </div>
+
+          <div class="entity-grid" id="driversGridContainer"></div>
+        </div>
+
+        <!-- ================= VIEW 6: SALARY & BATA ================= -->
+        <div id="view-salary" class="module-view">
+          <div class="module-header-row">
+            <div class="module-header-title">
+              <h2>Salary & Driver Bata Management</h2>
+              <p>Monthly salary statements, daily wages, per-trip Bata and payouts</p>
+            </div>
+            <div class="module-actions-row">
+              <button class="btn-secondary" onclick="openModal('modalAddBata')">+ Log Bata</button>
+              <button class="btn-primary" onclick="openModal('modalGenerateSalary')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Generate Salary Statement
+              </button>
+            </div>
+          </div>
+
+          <!-- Monthly Salary Statements -->
+          <div class="panel-card" style="margin-bottom: 24px;">
+            <div class="panel-header">
+              <h3 class="panel-title">Monthly Driver Salary Statements</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Driver Name</th>
+                    <th>Period</th>
+                    <th>Days Worked</th>
+                    <th>Base Earned</th>
+                    <th>Net Payable</th>
+                    <th>Paid Amount</th>
+                    <th>Balance Payable</th>
+                    <th>Status / Action</th>
+                  </tr>
+                </thead>
+                <tbody id="salaryRecordsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Trip Bata Tracker -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3 class="panel-title">Trip Bata Log</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Driver</th>
+                    <th>Bata Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="bataRecordsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= VIEW 7: DOCUMENTS & REMINDERS ================= -->
+        <div id="view-documents" class="module-view">
+          <div class="module-header-row">
+            <div class="module-header-title">
+              <h2>Statutory Documents & Expiry Alerts</h2>
+              <p>Track FC, Insurance, National Permit, PUC and Road Tax with automated 30/15/7 day alerts</p>
+            </div>
+            <div class="module-actions-row">
+              <button class="btn-primary" onclick="openModal('modalAddDocument')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Add Document
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-controls-card">
+            <select id="docTypeFilter" class="select-filter" onchange="window.loadDocumentsView()">
+              <option value="All">All Document Types</option>
+              <option value="Insurance">Insurance</option>
+              <option value="FC">FC (Fitness Certificate)</option>
+              <option value="Permit">Permit</option>
+              <option value="National Permit">National Permit (NP)</option>
+              <option value="PUC">PUC (Pollution Certificate)</option>
+              <option value="Road Tax">Road Tax</option>
+            </select>
+            <select id="docStatusFilter" class="select-filter" onchange="window.loadDocumentsView()">
+              <option value="All">All Expiry Status</option>
+              <option value="expiring_soon">Expiring Soon (&le; 30 Days)</option>
+              <option value="expired">Expired</option>
+              <option value="valid">Valid</option>
+            </select>
+          </div>
+
+          <div class="panel-card" style="padding: 0; overflow: hidden;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Vehicle No.</th>
+                    <th>Document Type</th>
+                    <th>Document No.</th>
+                    <th>Issue Date</th>
+                    <th>Expiry Date</th>
+                    <th>Status / Countdown</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="documentsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= VIEW 8: REPORTS ================= -->
+        <div id="view-reports" class="module-view">
+          <div class="module-header-row">
+            <div class="module-header-title">
+              <h2>Business Analytics & Export Reports</h2>
+              <p>Truck-wise Profit & Loss, Customer Balance Aging, and Fuel Consumption</p>
+            </div>
+          </div>
+
+          <!-- Truck Wise P&L -->
+          <div class="panel-card" style="margin-bottom: 24px;">
+            <div class="panel-header">
+              <h3 class="panel-title">Vehicle-wise Profit & Loss (P&L)</h3>
+              <button class="btn-secondary" style="font-size: 0.78rem;" onclick="window.downloadReportCSV('vehicle-pl')">Download CSV</button>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Vehicle Number</th>
+                    <th>Model</th>
+                    <th>Driver</th>
+                    <th>Trips</th>
+                    <th>Total Income</th>
+                    <th>Total Expenses</th>
+                    <th>Net Profit</th>
+                    <th>Profit Margin</th>
+                  </tr>
+                </thead>
+                <tbody id="vehiclePLTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Customer Balances -->
+          <div class="panel-card" style="margin-bottom: 24px;">
+            <div class="panel-header">
+              <h3 class="panel-title">Customer Outstanding Balances</h3>
+              <button class="btn-secondary" style="font-size: 0.78rem;" onclick="window.downloadReportCSV('customer-outstanding')">Download CSV</button>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Customer Name</th>
+                    <th>Company</th>
+                    <th>Phone</th>
+                    <th>Trips Handled</th>
+                    <th>Total Billed</th>
+                    <th>Payments Received</th>
+                    <th>Outstanding Balance</th>
+                  </tr>
+                </thead>
+                <tbody id="customerOutstandingTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Fuel Report -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3 class="panel-title">Vehicle Fuel Consumption Report</h3>
+              <button class="btn-secondary" style="font-size: 0.78rem;" onclick="window.downloadReportCSV('fuel')">Download CSV</button>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Vehicle Number</th>
+                    <th>Total Fuel Cost</th>
+                    <th>Refills Logged</th>
+                    <th>Trips Made</th>
+                    <th>Average Fuel / Trip</th>
+                  </tr>
+                </thead>
+                <tbody id="fuelReportTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= VIEW 9: SETTINGS ================= -->
+        <div id="view-settings" class="module-view">
+          <div class="module-header-row">
+            <div class="module-header-title">
+              <h2>System Settings & Preferences</h2>
+              <p>Configure company branding, address, currency and database backup</p>
+            </div>
+          </div>
+
+          <!-- Owner Profile Card -->
+          <div class="panel-card" style="max-width: 680px; margin-bottom: 24px;">
+            <div class="panel-header" style="margin-bottom: 14px;">
+              <h3 class="panel-title">Owner Profile</h3>
+            </div>
+            <form id="ownerProfileSettingsForm" onsubmit="window.handleSaveOwnerProfile(event)">
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label>Owner Name</label>
+                  <input type="text" name="full_name" id="settingsOwnerName" placeholder="Owner Full Name" required>
+                </div>
+                <div class="form-field">
+                  <label>Phone Number</label>
+                  <input type="text" name="phone" id="settingsOwnerPhone" placeholder="+91 98..." required>
+                </div>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label>Email Address</label>
+                  <input type="email" name="email" id="settingsOwnerEmail" placeholder="owner@..." required>
+                </div>
+                <div class="form-field">
+                  <label>Company Name</label>
+                  <input type="text" name="company_name" id="settingsOwnerCompany" placeholder="Company Name" required>
+                </div>
+              </div>
+              <button type="submit" class="btn-primary" style="margin-top: 10px;">Save Owner Profile</button>
+            </form>
+          </div>
+
+          <div class="panel-card" style="max-width: 680px; margin-bottom: 24px;">
+            <form id="companySettingsForm" onsubmit="handleSaveSettings(event)">
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label>Company Name</label>
+                  <input type="text" name="company_name" required>
+                </div>
+                <div class="form-field">
+                  <label>Tagline</label>
+                  <input type="text" name="tagline" required>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label>Phone Number</label>
+                  <input type="text" name="phone" required>
+                </div>
+                <div class="form-field">
+                  <label>Official Email</label>
+                  <input type="email" name="email" required>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label>Company Office Address</label>
+                <textarea name="address" rows="2" required></textarea>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label>Currency Symbol</label>
+                  <input type="text" name="currency" value="₹" required>
+                </div>
+                <div class="form-field">
+                  <label>Date Format</label>
+                  <input type="text" name="date_format" value="DD/MM/YYYY" required>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary" style="margin-top: 10px;">Save Settings</button>
+            </form>
+          </div>
+
+          <div class="panel-card" style="max-width: 680px;">
+            <div class="panel-header">
+              <h3 class="panel-title">Database Export & Disaster Backup</h3>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 14px;">
+              Download a complete JSON export of all trucks, drivers, trips, expenses and salary ledgers for offline storage.
+            </p>
+            <button class="btn-secondary" onclick="window.downloadDataBackup()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download Full Backup (JSON)
+            </button>
+          </div>
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ---------------- MODALS FOR ALL ACTIONS ---------------- -->
+
+  <!-- Modal: Add New Trip -->
+  <div class="modal-backdrop" id="modalAddTrip">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Trip</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalAddTrip')">&times;</button>
+      </div>
+      <form id="addTripForm" onsubmit="handleCreateTrip(event)">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Trip Date</label>
+              <input type="date" name="trip_date" id="addTripDate" required>
+            </div>
+            <div class="form-field">
+              <label>Vehicle / Truck</label>
+              <select name="vehicle_id" id="tripVehicleSelect" required onchange="handleTripVehicleSelectChange(this.value)">
+                <option value="">Select Truck</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label>Driver Name</label>
+                <a href="javascript:void(0)" onclick="closeModal('modalAddTrip'); switchModuleView('drivers');" style="font-size: 0.75rem; color: #0284c7; text-decoration: none;" title="Go to Driver Management to register new driver">+ Add Driver</a>
+              </div>
+              <select name="driver_id" id="tripDriverSelect">
+                <option value="">Select Driver</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Customer / Transporter Name</label>
+              <input type="text" name="customer_name" id="addTripCustomer" placeholder="e.g. ABC Logistics" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>From Location</label>
+              <input type="text" name="from_location" id="addTripFrom" placeholder="e.g. Coimbatore" required>
+            </div>
+            <div class="form-field">
+              <label>To Location</label>
+              <input type="text" name="to_location" id="addTripTo" placeholder="e.g. Chennai" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Load / Cargo Description</label>
+            <input type="text" name="load_description" id="addTripLoad" placeholder="e.g. Cotton Bales / Machinery">
+          </div>
+          <div class="form-grid-3">
+            <div class="form-field">
+              <label>Total Rent (₹)</label>
+              <input type="number" step="0.01" name="total_rent" id="addTripRent" placeholder="15000" required oninput="calculateAddTripBalance()">
+            </div>
+            <div class="form-field">
+              <label>Advance Received (₹)</label>
+              <input type="number" step="0.01" name="advance_received" id="addTripAdvance" placeholder="5000" value="0" oninput="calculateAddTripBalance()">
+            </div>
+            <div class="form-field">
+              <label>Balance Receivable (₹)</label>
+              <input type="text" id="addTripBalanceDisplay" value="₹ 0" readonly style="background: #f1f5f9; font-weight: 700; color: #b45309;">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Trip Status</label>
+            <select name="trip_status" id="addTripStatus">
+              <option value="Ongoing" selected>Ongoing</option>
+              <option value="Planned">Planned</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea name="notes" id="addTripNotes" rows="2" placeholder="Route notes, instructions..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalAddTrip')">Cancel</button>
+          <button type="submit" class="btn-primary">Register Trip</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Trip -->
+  <div class="modal-backdrop" id="modalEditTrip">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Trip Details</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalEditTrip')">&times;</button>
+      </div>
+      <form id="editTripForm" onsubmit="handleUpdateTrip(event)">
+        <input type="hidden" id="editTripId" name="trip_id">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Trip Date</label>
+              <input type="date" name="trip_date" id="editTripDate" required>
+            </div>
+            <div class="form-field">
+              <label>Vehicle / Truck</label>
+              <select name="vehicle_id" id="editTripVehicleSelect" required onchange="handleEditTripVehicleSelectChange(this.value)">
+                <option value="">Select Truck</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label>Driver Name</label>
+                <a href="javascript:void(0)" onclick="closeModal('modalEditTrip'); switchModuleView('drivers');" style="font-size: 0.75rem; color: #0284c7; text-decoration: none;" title="Go to Driver Management to register new driver">+ Add Driver</a>
+              </div>
+              <select name="driver_id" id="editTripDriverSelect">
+                <option value="">Select Driver</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Customer / Transporter Name</label>
+              <input type="text" name="customer_name" id="editTripCustomer" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>From Location</label>
+              <input type="text" name="from_location" id="editTripFrom" required>
+            </div>
+            <div class="form-field">
+              <label>To Location</label>
+              <input type="text" name="to_location" id="editTripTo" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Load / Cargo Description</label>
+            <input type="text" name="load_description" id="editTripLoad">
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Total Rent (₹)</label>
+              <input type="number" step="0.01" name="total_rent" id="editTripRent" required oninput="calculateEditTripBalance()">
+            </div>
+            <div class="form-field">
+              <label>Advance Received (₹)</label>
+              <input type="number" step="0.01" name="advance_received" id="editTripAdvance" oninput="calculateEditTripBalance()">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Additional Payments (₹)</label>
+              <input type="text" id="editTripAdditionalPayments" readonly style="background: #f1f5f9; color: #475569;" value="₹ 0">
+            </div>
+            <div class="form-field">
+              <label>Balance Receivable (₹)</label>
+              <input type="text" id="editTripBalance" readonly style="background: #f1f5f9; font-weight: 700; color: #b45309;" value="₹ 0">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Trip Status</label>
+            <select name="trip_status" id="editTripStatus">
+              <option value="Ongoing">Ongoing</option>
+              <option value="Planned">Planned</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea name="notes" id="editTripNotes" rows="2" placeholder="Route notes, instructions..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalEditTrip')">Cancel</button>
+          <button type="submit" class="btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Confirm Delete Trip -->
+  <div class="modal-backdrop" id="modalConfirmDeleteTrip">
+    <div class="modal-dialog" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: #ef4444; display: flex; align-items: center; gap: 8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          Delete Trip
+        </h3>
+        <button class="modal-close-btn" onclick="closeModal('modalConfirmDeleteTrip')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 1rem; font-weight: 600; color: #0f172a; margin-bottom: 8px;">
+          Are you sure you want to delete this trip?
+        </p>
+        <div id="deleteTripSummary" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; font-size: 0.85rem; color: #475569;">
+        </div>
+        <p id="deleteTripNotice" style="font-size: 0.8rem; color: #64748b; line-height: 1.4;">
+          This will delete the selected trip record. If payments are already associated with this trip, it will be safely archived/cancelled to protect your financial accounts.
+        </p>
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button type="button" class="btn-secondary" onclick="closeModal('modalConfirmDeleteTrip')">Cancel</button>
+        <button type="button" class="btn-danger" id="confirmDeleteTripBtn" onclick="executeDeleteTrip()">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Record Trip Payment -->
+  <div class="modal-backdrop" id="modalRecordPayment">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Record Payment for Trip</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalRecordPayment')">&times;</button>
+      </div>
+      <form id="recordPaymentForm" onsubmit="handleRecordPayment(event)">
+        <input type="hidden" id="payTripId">
+        <div class="modal-body">
+          <div style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 14px;">
+            <div>Vehicle: <strong id="payTripVehicle"></strong></div>
+            <div style="margin-top: 4px;">Remaining Balance: <strong id="payTripBalance" style="color: #b45309;"></strong></div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Payment Date</label>
+              <input type="date" name="payment_date" required>
+            </div>
+            <div class="form-field">
+              <label>Amount (₹)</label>
+              <input type="number" step="0.01" name="amount" id="payAmountInput" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Payment Method</label>
+            <select name="payment_method">
+              <option value="Bank Transfer">Bank Transfer (NEFT/RTGS/IMPS)</option>
+              <option value="UPI">UPI (GPay, PhonePe)</option>
+              <option value="Cash">Cash</option>
+              <option value="Cheque">Cheque</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>UTR / Reference Number</label>
+            <input type="text" name="reference_number" placeholder="Transaction ref or cheque no.">
+          </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea name="notes" rows="2" placeholder="Payment receipt notes"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalRecordPayment')">Cancel</button>
+          <button type="submit" class="btn-primary">Submit Payment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Expense -->
+  <div class="modal-backdrop" id="modalAddExpense">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Expense</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalAddExpense')">&times;</button>
+      </div>
+      <form id="addExpenseForm" onsubmit="handleCreateExpense(event)">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Date</label>
+              <input type="date" name="date" required>
+            </div>
+            <div class="form-field">
+              <label>Vehicle (Optional)</label>
+              <select name="vehicle_id" id="expenseVehicleSelect"></select>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Category</label>
+              <select name="category" required>
+                <option value="Diesel">Diesel</option>
+                <option value="Toll">Toll</option>
+                <option value="Driver Bata">Driver Bata</option>
+                <option value="Repair & Maintenance">Repair & Maintenance</option>
+                <option value="Loading/Unloading">Loading/Unloading</option>
+                <option value="Insurance">Insurance</option>
+                <option value="Permit & FC">Permit & FC</option>
+                <option value="Road Tax">Road Tax</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Amount (₹)</label>
+              <input type="number" step="0.01" name="amount" placeholder="Amount in ₹" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Paid To / Vendor</label>
+              <input type="text" name="paid_to" placeholder="e.g. Fuel Bunk, Toll, Mechanic">
+            </div>
+            <div class="form-field">
+              <label>Payment Method</label>
+              <select name="payment_method">
+                <option value="Cash">Cash</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Card">Card</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Description</label>
+            <textarea name="description" rows="2" placeholder="Details of the expenditure"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalAddExpense')">Cancel</button>
+          <button type="submit" class="btn-primary">Record Expense</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Driver -->
+  <div class="modal-backdrop" id="modalAddDriver">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Register New Driver</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalAddDriver')">&times;</button>
+      </div>
+      <form id="addDriverForm" onsubmit="handleCreateDriver(event)">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Full Name</label>
+              <input type="text" name="full_name" placeholder="Driver's Name" required>
+            </div>
+            <div class="form-field">
+              <label>Phone Number</label>
+              <input type="text" name="phone_number" placeholder="+91 98..." required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Driver License Number</label>
+              <input type="text" name="license_number" placeholder="TN-..." required>
+            </div>
+            <div class="form-field">
+              <label>License Expiry Date</label>
+              <input type="date" name="license_expiry">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Address</label>
+            <input type="text" name="address" placeholder="Driver residential address">
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Salary Scheme</label>
+              <select name="salary_type">
+                <option value="Monthly" selected>Monthly Salary</option>
+                <option value="Daily">Daily Wage</option>
+                <option value="Trip Bata">Trip Bata Only</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Monthly Salary (₹)</label>
+              <input type="number" step="0.01" name="monthly_salary" placeholder="22000" value="22000">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Daily Wage Rate (₹)</label>
+              <input type="number" step="0.01" name="daily_salary" placeholder="800" value="800">
+            </div>
+            <div class="form-field">
+              <label>Standard Bata per Trip (₹)</label>
+              <input type="number" step="0.01" name="bata_per_trip" placeholder="500" value="500">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea name="notes" rows="2" placeholder="Experience, background notes"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalAddDriver')">Cancel</button>
+          <button type="submit" class="btn-primary">Register Driver</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Truck -->
+  <div class="modal-backdrop" id="modalAddTruck">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Register New Vehicle</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalAddTruck')">&times;</button>
+      </div>
+      <form id="addTruckForm" onsubmit="handleCreateTruck(event)">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Vehicle Registration No.</label>
+              <input type="text" name="vehicle_number" placeholder="TN-00-0000" required>
+            </div>
+            <div class="form-field">
+              <label>Make & Model</label>
+              <input type="text" name="make_model" placeholder="TATA LPT 3118 / Signa" value="TATA LPT 3118">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Vehicle Type</label>
+            <select name="vehicle_type">
+              <option value="12 Wheeler Container" selected>12 Wheeler Container</option>
+              <option value="14 Wheeler Multi-Axle">14 Wheeler Multi-Axle</option>
+              <option value="10 Wheeler Long Haul">10 Wheeler Long Haul</option>
+              <option value="16 Wheeler Heavy Carrier">16 Wheeler Heavy Carrier</option>
+            </select>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Permit Number</label>
+              <input type="text" name="permit_number" placeholder="Permit reference">
+            </div>
+            <div class="form-field">
+              <label>Permit Expiry</label>
+              <input type="date" name="permit_expiry">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>National Permit Expiry</label>
+              <input type="date" name="national_permit_expiry">
+            </div>
+            <div class="form-field">
+              <label>FC Expiry Date</label>
+              <input type="date" name="fc_expiry">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Insurance Policy No.</label>
+              <input type="text" name="insurance_policy_number" placeholder="Policy No.">
+            </div>
+            <div class="form-field">
+              <label>Insurance Expiry</label>
+              <input type="date" name="insurance_expiry">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>PUC Expiry Date</label>
+              <input type="date" name="puc_expiry">
+            </div>
+            <div class="form-field">
+              <label>Road Tax Expiry Date</label>
+              <input type="date" name="road_tax_expiry">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea name="notes" rows="2" placeholder="Vehicle notes..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalAddTruck')">Cancel</button>
+          <button type="submit" class="btn-primary">Add Vehicle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Statutory Document -->
+  <div class="modal-backdrop" id="modalAddDocument">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Statutory Document Record</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalAddDocument')">&times;</button>
+      </div>
+      <form id="addDocumentForm" onsubmit="handleAddDocument(event)">
+        <div class="modal-body">
+          <div class="form-field">
+            <label>Vehicle</label>
+            <select name="vehicle_id" id="docVehicleSelect" required></select>
+          </div>
+          <div class="form-field">
+            <label>Document Type</label>
+            <select name="document_type" required>
+              <option value="Insurance">Insurance Policy</option>
+              <option value="FC">FC (Fitness Certificate)</option>
+              <option value="Permit">State Permit</option>
+              <option value="National Permit">National Permit (NP)</option>
+              <option value="PUC">PUC (Pollution Under Control)</option>
+              <option value="Road Tax">Road Tax</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Certificate / Document Number</label>
+            <input type="text" name="document_number" placeholder="Policy or Cert Number">
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Issue Date</label>
+              <input type="date" name="issue_date">
+            </div>
+            <div class="form-field">
+              <label>Expiry Date</label>
+              <input type="date" name="expiry_date" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea name="notes" rows="2" placeholder="Document remarks"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalAddDocument')">Cancel</button>
+          <button type="submit" class="btn-primary">Save Document</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Generate Salary Statement -->
+  <div class="modal-backdrop" id="modalGenerateSalary">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Generate Driver Monthly Salary Statement</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalGenerateSalary')">&times;</button>
+      </div>
+      <form id="generateSalaryForm" onsubmit="handleGenerateSalary(event)">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Select Driver</label>
+              <select name="driver_id" id="salaryDriverSelect" required></select>
+            </div>
+            <div class="form-field">
+              <label>Salary Period</label>
+              <input type="text" name="salary_period" placeholder="e.g. October 2026" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Days Worked</label>
+              <input type="number" name="days_worked" value="30" required>
+            </div>
+            <div class="form-field">
+              <label>Base Salary Rate (₹)</label>
+              <input type="number" step="0.01" name="base_salary_rate" placeholder="Driver rate">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Bata Earned (₹)</label>
+              <input type="number" step="0.01" name="bata_earned" value="0">
+            </div>
+            <div class="form-field">
+              <label>Allowance (₹)</label>
+              <input type="number" step="0.01" name="allowance" value="0">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Advance Deduction (₹)</label>
+              <input type="number" step="0.01" name="advance_deduction" value="0">
+            </div>
+            <div class="form-field">
+              <label>Other Deductions (₹)</label>
+              <input type="number" step="0.01" name="other_deductions" value="0">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea name="notes" rows="2" placeholder="Monthly salary remarks"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalGenerateSalary')">Cancel</button>
+          <button type="submit" class="btn-primary">Generate Statement</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Salary Payout -->
+  <div class="modal-backdrop" id="modalSalaryPayout">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Record Salary Payout</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalSalaryPayout')">&times;</button>
+      </div>
+      <form id="salaryPayoutForm" onsubmit="handleSalaryPayout(event)">
+        <input type="hidden" id="salaryRecId">
+        <input type="hidden" id="salaryDriverId">
+        <div class="modal-body">
+          <div style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 14px;">
+            <div>Driver: <strong id="payoutDriverName"></strong></div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Payment Date</label>
+              <input type="date" name="payment_date" required>
+            </div>
+            <div class="form-field">
+              <label>Payout Amount (₹)</label>
+              <input type="number" step="0.01" name="amount" id="payoutAmountInput" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Payment Method</label>
+            <select name="payment_method">
+              <option value="Cash" selected>Cash</option>
+              <option value="Bank Transfer">Bank Transfer (UPI / IMPS)</option>
+              <option value="Cheque">Cheque</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea name="notes" rows="2" placeholder="Payment receipt notes"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalSalaryPayout')">Cancel</button>
+          <button type="submit" class="btn-primary">Record Payout</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Log Bata -->
+  <div class="modal-backdrop" id="modalAddBata">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Log Driver Trip Bata</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalAddBata')">&times;</button>
+      </div>
+      <form id="addBataForm" onsubmit="handleCreateBata(event)">
+        <div class="modal-body">
+          <div class="form-field">
+            <label>Driver</label>
+            <select name="driver_id" id="bataDriverSelect" required></select>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Date</label>
+              <input type="date" name="date" required>
+            </div>
+            <div class="form-field">
+              <label>Bata Amount (₹)</label>
+              <input type="number" step="0.01" name="amount" value="500" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Status</label>
+            <select name="status">
+              <option value="Pending" selected>Pending</option>
+              <option value="Paid">Paid</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea name="notes" rows="2" placeholder="Trip route, purpose"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalAddBata')">Cancel</button>
+          <button type="submit" class="btn-primary">Log Bata</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Details Dialogs -->
+  <div class="modal-backdrop" id="modalTruckDetails">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Vehicle Record Details</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalTruckDetails')">&times;</button>
+      </div>
+      <div class="modal-body" id="truckDetailsContent"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModal('modalTruckDetails')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalDriverDetails">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Driver Profile & History</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalDriverDetails')">&times;</button>
+      </div>
+      <div class="modal-body" id="driverDetailsContent"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModal('modalDriverDetails')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalTripDetails">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Trip Ledger Details</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalTripDetails')">&times;</button>
+      </div>
+      <div class="modal-body" id="tripDetailsContent"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModal('modalTripDetails')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Owner Profile -->
+  <div class="modal-backdrop" id="modalOwnerProfile">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Owner Profile</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalOwnerProfile')">&times;</button>
+      </div>
+      <form id="ownerProfileModalForm" onsubmit="window.handleSaveOwnerProfile(event)">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Owner Name</label>
+              <input type="text" name="full_name" id="modalOwnerName" placeholder="Owner Full Name" required>
+            </div>
+            <div class="form-field">
+              <label>Phone Number</label>
+              <input type="text" name="phone" id="modalOwnerPhone" placeholder="+91 98..." required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Email Address</label>
+              <input type="email" name="email" id="modalOwnerEmail" placeholder="owner@..." required>
+            </div>
+            <div class="form-field">
+              <label>Company Name</label>
+              <input type="text" name="company_name" id="modalOwnerCompany" placeholder="Company Name" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modalOwnerProfile')">Cancel</button>
+          <button type="submit" class="btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+  <script src="/static/js/trucks.js"></script>
+  <script src="/static/js/trips.js"></script>
+  <script src="/static/js/expenses.js"></script>
+  <script src="/static/js/drivers.js"></script>
+  <script src="/static/js/salary.js"></script>
+  <script src="/static/js/documents.js"></script>
+  <script src="/static/js/reports.js"></script>
+  <script src="/static/js/settings.js"></script>
+
+  <script>
+    // Initialize date picker inputs with today's date
+    document.addEventListener('DOMContentLoaded', () => {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      document.querySelectorAll('input[type="date"]').forEach(inp => {
+        if (!inp.value) inp.value = todayStr;
+      });
+      // Set logged in username
+      const uname = localStorage.getItem('mtt_owner_name') || 'Owner';
+      if (window.updateDisplayedOwnerName) {
+        window.updateDisplayedOwnerName(uname);
+      } else {
+        const userElem = document.getElementById('ownerDisplayUsername');
+        if (userElem) userElem.textContent = uname;
+        const greetElem = document.getElementById('welcomeHeroTitle');
+        if (greetElem) greetElem.textContent = `Good Morning, ${uname}!`;
+      }
+    });
+
+    // Bata creation submission handler
+    async function handleCreateBata(e) {
+      e.preventDefault();
+      const form = document.getElementById('addBataForm');
+      const payload = {
+        driver_id: parseInt(form.driver_id.value),
+        date: form.date.value,
+        amount: parseFloat(form.amount.value),
+        status: form.status.value,
+        notes: form.notes.value.trim()
+      };
+      try {
+        await API.post('/salary/bata', payload);
+        showToast('Trip Bata logged!', 'success');
+        closeModal('modalAddBata');
+        form.reset();
+        window.loadSalaryView();
+      } catch (err) {
+        showToast(err.message || 'Error logging bata', 'error');
+      }
+    }
+  </script>
+
+</body>
+</html>

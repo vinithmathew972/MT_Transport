@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mother Theresa Transport - Better Logistics Better Tomorrow</title>
+  <link rel="stylesheet" href="/static/css/landing.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f59e0b'><path d='M1 3h15v13H1z'/><path d='M16 8h4l3 3v5h-7V8z'/><circle cx='5.5' cy='18.5' r='2.5'/><circle cx='18.5' cy='18.5' r='2.5'/></svg>">
+</head>
+<body>
+
+  <!-- Full-Screen Cinematic Landing Page -->
+  <main class="landing-hero" id="heroSection" role="banner" title="Mother Theresa Transport - Click to enter Owner Portal" tabindex="0">
+    
+    <!-- Seamless Ambient Glow Backdrop (fills full screen smoothly without letterbox bars) -->
+    <div class="hero-ambient-layer" aria-hidden="true"></div>
+
+    <!-- Complete Attached Banner Image (preserves original quality & aspect ratio, zero crop, zero distortion) -->
+    <div class="hero-image-container">
+      <img 
+        src="/assets/images/mother_theresa_trucks.jpg" 
+        alt="Mother Theresa Transport - Better Logistics Better Tomorrow" 
+        class="hero-bg-img" 
+        id="heroBgImg"
+      >
+    </div>
+
+    <!-- Discreet Owner Portal Trigger -->
+    <a href="/login" class="discreet-portal-trigger" id="portalTrigger" title="Owner Portal" aria-label="Owner Portal">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      <span>Owner</span>
+    </a>
+
+  </main>
+
+  <!-- Interactive Hint Toast on keypress -->
+  <div class="portal-hint-toast" id="hintToast">
+    Press <kbd>L</kbd> or <kbd>Enter</kbd> to enter Owner Portal
+  </div>
+
+  <script>
+    // Discreet owner navigation handlers
+    const heroSection = document.getElementById('heroSection');
+    const hintToast = document.getElementById('hintToast');
+
+    // Click anywhere on the hero banner navigates directly to login
+    if (heroSection) {
+      heroSection.addEventListener('click', (e) => {
+        if (e.target.closest('#portalTrigger')) return;
+        window.location.href = '/login';
+      });
+    }
+
+    // Keyboard shortcuts: 'L', 'l', or 'Enter' navigates to login
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'l' || e.key === 'L' || e.key === 'Enter') {
+        window.location.href = '/login';
+      }
+    });
+
+    // If user already logged in, update tooltip to dashboard
+    const token = localStorage.getItem('mtt_token');
+    if (token && heroSection) {
+      heroSection.title = "Click to open Owner Dashboard";
+    }
+  </script>
+
+</body>
+</html>

@@ -4,26 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mother Theresa Transport - Better Logistics Better Tomorrow</title>
-  <link rel="stylesheet" href="/static/css/landing.css">
+  <link rel="stylesheet" href="/static/css/landing.css" onerror="this.onerror=null;this.href='css/landing.css';">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f59e0b'><path d='M1 3h15v13H1z'/><path d='M16 8h4l3 3v5h-7V8z'/><circle cx='5.5' cy='18.5' r='2.5'/><circle cx='18.5' cy='18.5' r='2.5'/></svg>">
 </head>
 <body>
 
-  <!-- Full-Screen Cinematic Landing Page -->
+  <!-- Full-Screen Home Page with Attached Banner as Background -->
   <main class="landing-hero" id="heroSection" role="banner" title="Mother Theresa Transport - Click to enter Owner Portal" tabindex="0">
     
-    <!-- Seamless Ambient Glow Backdrop (fills full screen smoothly without letterbox bars) -->
-    <div class="hero-ambient-layer" aria-hidden="true"></div>
-
-    <!-- Complete Attached Banner Image (preserves original quality & aspect ratio, zero crop, zero distortion) -->
-    <div class="hero-image-container">
-      <img 
-        src="/assets/images/mother_theresa_trucks.jpg" 
-        alt="Mother Theresa Transport - Better Logistics Better Tomorrow" 
-        class="hero-bg-img" 
-        id="heroBgImg"
-      >
-    </div>
+    <!-- Single Full-Screen Background Image (complete image displayed, aspect ratio strictly preserved, zero distortion) -->
+    <img 
+      src="/static/assets/images/mother_teresa_trucks.jpg" 
+      onerror="if(this.src.indexOf('/static/')!==-1)this.src='assets/images/mother_teresa_trucks.jpg';"
+      alt="Mother Theresa Transport - Better Logistics Better Tomorrow" 
+      class="hero-bg-img" 
+      id="heroBgImg"
+    >
 
     <!-- Discreet Owner Portal Trigger -->
     <a href="/login" class="discreet-portal-trigger" id="portalTrigger" title="Owner Portal" aria-label="Owner Portal">
@@ -42,11 +38,10 @@
   </div>
 
   <script>
-    // Discreet owner navigation handlers
     const heroSection = document.getElementById('heroSection');
     const hintToast = document.getElementById('hintToast');
 
-    // Click anywhere on the hero banner navigates directly to login
+    // Click anywhere on the Home Page navigates directly to login
     if (heroSection) {
       heroSection.addEventListener('click', (e) => {
         if (e.target.closest('#portalTrigger')) return;
@@ -61,7 +56,7 @@
       }
     });
 
-    // If user already logged in, update tooltip to dashboard
+    // If user already logged in, update tooltip
     const token = localStorage.getItem('mtt_token');
     if (token && heroSection) {
       heroSection.title = "Click to open Owner Dashboard";

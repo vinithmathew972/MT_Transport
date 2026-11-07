@@ -29,15 +29,8 @@ app.add_middleware(
 )
 
 # Auto seed on application launch
-@app.on_event("startup")
-def startup_event():
-    from backend.database import SessionLocal
-    db = SessionLocal()
-    try:
-        seed_database(db)
-    finally:
-        db.close()
-
+# Automatic seeding disabled to prevent demo data recreation on app restart.
+# To seed manually, run `python -m backend.seed`.
 # Include API Routers
 app.include_router(auth.router)
 app.include_router(dashboard.router)

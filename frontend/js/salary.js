@@ -148,3 +148,15 @@ window.markBataPaid = async function(bataId) {
     showToast(err.message, 'error');
   }
 };
+
+// ------------------- Bata Delete functionality -------------------
+window.deleteBataRecord = async function(bataId) {
+  if (!confirm('Are you sure you want to permanently delete this Bata record?')) return;
+  try {
+    await API.delete(`/salary/bata/${bataId}`);
+    showToast('Bata record deleted.', 'success');
+    window.loadSalaryView(); // refresh both salary and bata tables
+  } catch (err) {
+    showToast(err.message || 'Failed to delete Bata record', 'error');
+  }
+};

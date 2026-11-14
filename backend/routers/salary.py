@@ -184,3 +184,20 @@ def pay_bata(
     bata.status = "Paid"
     db.commit()
     return {"message": "Bata marked as paid"}
+
+# ---------- Added DELETE endpoint for Bata records ----------
+@router.delete("/bata/{bata_id}")
+def delete_bata_record(
+    bata_id: int,
+    db: Session = Depends(get_db),
+    current_owner: Owner = Depends(get_current_owner)
+):
+    """Delete a Bata record permanently.
+    Returns a success message; raises 404 if not found.
+    """
+    bata = db.query(BataRecord).filter(BataRecord.id == bata_id).first()
+    if not bata:
+        raise HTTPException(status_code=404, detail="Bata record not found")
+    db.delete(bata)
+    db.commit()
+    return {"message": "Bata record deleted successfully"}
